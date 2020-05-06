@@ -37,10 +37,15 @@
 	<div>
             <h1>Calculate the cost per EV yield</h1>
         </div>
-            Price per 252: 
-            <input type="text" id="Text1" name="TextBox1">K<br><br>
+            Full EV Training Price: 
+            <input type="text" id="Text1" maxlength="3" value="0" name="TextBox1">K<br><br>
             Needed EVs :  
-            <input type="text" id="Text2" name="TextBox2">
+            <br><input type="text" id="Text2" maxlength="3" value="0" name="TextBox2"> HP
+            <br><input type="text" id="Text3" maxlength="3" value="0" name="TextBox3"> Atk
+            <br><input type="text" id="Text4" maxlength="3" value="0" name="TextBox4"> Def
+            <br><input type="text" id="Text5" maxlength="3" value="0" name="TextBox5"> SpA
+            <br><input type="text" id="Text6" maxlength="3" value="0" name="TextBox6"> SpD
+            <br><input type="text" id="Text7" maxlength="3" value="0" name="TextBox7"> Spe
             <br><br>
          <button onclick="add_number()">Calculate Cost</button><br><br>
 	    EV Training Cost:  
@@ -53,7 +58,12 @@
 
             var first_number = parseInt(document.getElementById("Text1").value);
             var second_number = parseInt(document.getElementById("Text2").value);
-            var result = Math.round(first_number / 252 * second_number);
+            var third_number = parseInt(document.getElementById("Text3").value);
+            var fourth_number = parseInt(document.getElementById("Text4").value);
+            var fifth_number = parseInt(document.getElementById("Text5").value);
+            var sixth_number = parseInt(document.getElementById("Text6").value);
+            var seventh_number = parseInt(document.getElementById("Text7").value);
+            var result = Math.round(first_number / 510 * (second_number + third_number + fourth_number + fifth_number + sixth_number + seventh_number));
 
 	if(!isNaN(result))
             document.getElementById("answer").innerHTML="Total "+result+"K"; 
