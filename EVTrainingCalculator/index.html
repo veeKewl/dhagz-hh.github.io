@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <title>EV Training Calculator</title>
       <!-- for styling -->
-      <style>
+<style>
 	 body {
 	 font-family: 'Raleway', sans-serif !important;
          background: url(https://wallpaperaccess.com/full/2233724.jpg);
@@ -30,15 +30,26 @@
 	 text-align:right;
          width:3% 
          } 
-
-      </style> 
-   </head> 
-   <body>  
+	 footer {
+  	 position: absolute;
+  	 right: 0;
+ 	 bottom: 0;
+  	 left: 0;
+  	 text-align: center;
+  	 margin-left: 'auto';
+ 	 margin-right: 'auto';
+	 }
+	 h6 {
+	   margin-top: 0px;
+	 }
+</style> 
+</head> 
+<body>  
 	<div>
-            <h1>Calculate the cost per EV yield</h1>
+            <h1>EV Training Calculator</h1>
         </div>
             Full EV Training Price: 
-            <input type="text" id="Text1" maxlength="3" value="0" name="TextBox1" onkeyup="this.value = minmax(this.value, 0, 252)"/>K<br><br>
+            <input type="text" id="Text1" maxlength="3" value="0" name="TextBox1"/>K<br><br>
             Needed EVs :  
             <br><input type="text" id="Text2" maxlength="3" value="0" name="TextBox2" onkeyup="this.value = minmax(this.value, 0, 252)"/> HP
             <br><input type="text" id="Text3" maxlength="3" value="0" name="TextBox3" onkeyup="this.value = minmax(this.value, 0, 252)"/> Atk
@@ -51,7 +62,6 @@
 	    EV Training Cost:  
 	    <h1 id="Cost"></h1>
             <br>
-
 
         <script type="text/javascript">
 function minmax(value, min, max) 
@@ -78,5 +88,6 @@ function minmax(value, min, max)
             document.getElementById("Cost").innerHTML="Total "+result+"K"; 
         }
         </script>
-   </body> 
+<H6><footer>&copy; Dhagz 2020</footer></H6>
+</body> 
 </html>
