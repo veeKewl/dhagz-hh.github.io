@@ -1,25 +1,19 @@
 <!DOCTYPE HTML>
 <html>
 <head> 
+    <link rel="shortcut icon" href="https://www.pinclipart.com/picdir/middle/84-842615_pokeball-icon-clipart.png">
 <meta charset="UTF-8">
 <title>EV Training Calculator</title>
       <!-- for styling -->
       <style>
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
 	 body {
 	 font-family: 'Raleway', sans-serif !important;
-         background: url(https://wallpaperaccess.com/full/2233724.jpg) center center repeat !important;
-  	 background-size: cover !important;
-  	 position: relative;
+         background: url(https://wallpaperaccess.com/full/2233724.jpg);
+  	 background-repeat: no-repeat;
+  	 background-attachment: fixed;
+	 background-position: center;
+	 background-size: cover;
 	 color: white;
-  	 margin: 0;
-  	 padding-bottom: 25px;
-  	 min-height: 100%;
-  	 min-width: 750px;
 	 } 
          input[type="button"] 
          { 
@@ -29,7 +23,6 @@
          border: solid grey 2px; 
          width:6% 
          } 
-  
          input[type="text"] 
          { 
          background-color:white; 
@@ -49,10 +42,11 @@
             Needed EVs :  
             <input type="text" id="Text2" name="TextBox2">
             <br><br>
-            Cost :  
-            <input type="text" id="txtresult" name="TextBox3">K
+         <button onclick="add_number()">Calculate Cost</button><br><br>
+	    EV Training Cost:  
+	    <h1 id="answer"></h1>
             <br>
-         <input type="button" name="clickbtn" value="Calculate" onclick="add_number()">
+
 
         <script type="text/javascript">
                     function add_number() {
@@ -60,7 +54,9 @@
             var first_number = parseInt(document.getElementById("Text1").value);
             var second_number = parseInt(document.getElementById("Text2").value);
             var result = Math.round(first_number / 252 * second_number);
-            document.getElementById("txtresult").value = result; 
+
+	if(!isNaN(result))
+            document.getElementById("answer").innerHTML="Total "+result+"K"; 
         }
         </script>
    </body> 
