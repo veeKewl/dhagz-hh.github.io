@@ -14,7 +14,7 @@
 	<style>
 		body {
 		font-family: 'Raleway', sans-serif !important;
-        background: url(https://images7.alphacoders.com/549/549807.png);
+        	background: url(https://images7.alphacoders.com/549/549807.png);
 		background-repeat: no-repeat;
 		background-attachment: fixed;
 		background-position: center;
@@ -23,24 +23,24 @@
 		}
 		form {
 		font-size: 10px;
-    	}
+    		}
 		iframe.top {
-    	position: right;
-    	border: none;
-    	float: right;
+    		position: right;
+    		border: none;
+    		float: right;
 		width: 60%;
-    	height: 100%;
-    	}
-        input[type="button"] { 
-        background-color:grey; 
-        color: white;
+    		height: 100%;
+    		}
+        	input[type="button"] { 
+        	background-color:grey; 
+        	color: white;
 		font-size: 13px; 
-        border: solid grey 2px; 
-        width:10% 
-        } 
-        input[type="text"] { 
-        background-color:white; 
-        border: solid black 2px; 
+        	border: solid grey 2px; 
+        	width:10% 
+        	} 
+        	input[type="text"] { 
+        	background-color:white; 
+        	border: solid black 2px; 
 		text-align:right;
 		width:5% 
 		} 
@@ -63,7 +63,9 @@
 </head> 
 <body>
 	<div>
-
+		<div class="split right">
+			<iframe name="pokeplanet" src="https://pokemon-planet.com/gameFullscreen.php" width="1050" height="560" frameborder="0" scrolling="auto" class="frame-area" align="right"></iframe>
+		</div>
 		<div class="split left">
 			<div class="centered">
 				<div>
@@ -83,6 +85,9 @@
             <br>
 			<button onclick="add_number()">Calculate</button>
 			<h5 id="result"></h5><br><br>
+				<div>
+					<iframe name="pokedex" src="https://pokedex.org" width="283" height="250" frameborder="0" scrolling="auto" class="frame-area" align="left onload='resizeIframe(this)"></iframe>
+				</div>				
 			</div>
 		</div>
 	</div>
