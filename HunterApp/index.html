@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+    <link rel="shortcut icon" href="https://www.pinclipart.com/picdir/middle/84-842615_pokeball-icon-clipart.png">
+	<script type="text/javascript">
+		function resizeIframe(obj){
+		obj.style.height = 0;
+		obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+		}
+	</script>
+	<meta charset="UTF-8">
+	<title>PPO Hunter's App</title>
+<!-- for styling -->
+	<style>
+		body {
+		font-family: 'Raleway', sans-serif !important;
+        background: url(https://images7.alphacoders.com/549/549807.png);
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-position: center;
+		background-size: cover;
+		color: white;
+		}
+		form {
+		font-size: 10px;
+    	}
+		iframe.top {
+    	position: right;
+    	border: none;
+    	float: right;
+		width: 60%;
+    	height: 100%;
+    	}
+        input[type="button"] { 
+        background-color:grey; 
+        color: white;
+		font-size: 13px; 
+        border: solid grey 2px; 
+        width:10% 
+        } 
+        input[type="text"] { 
+        background-color:white; 
+        border: solid black 2px; 
+		text-align:right;
+		width:5% 
+		} 
+		footer {
+		position: absolute;
+		text-align: center;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		margin-left: 'auto';
+		margin-right: 'auto';
+		}
+		b  {
+		color: #DACA69;
+		}
+		h6 {
+		margin-top: 0px;
+		} 
+	</style> 
+</head> 
+<body>
+	<div>
+		<div class="split left">
+			<div class="centered">
+				<div>
+					<h2>Hunter's App</h2>
+				</div>
+			LLE <br>
+            <input type="text" id="Text1" maxlength="6" name="TextBox1">
+            <br><br>
+				<div>
+					<form action="#" method="post" class="demoForm" id="demoForm"> 
+						<label><input type="checkbox" id="GM" onclick="myFunction()"/>GM</label><br>
+						<label><input type="checkbox" id="EI" onclick="myFunction()"/>(E) Items</label><br>
+						<label><input type="checkbox" id="Honey" onclick="myFunction()"/> Honey</label><br>
+					</form><br>
+				</div>
+            Legend Chance : <br>
+            <br>
+			<button onclick="add_number()">Calculate</button>
+			<h5 id="result"></h5><br><br>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">	
+
+        function add_number() {
+	
+	// Checkbox if checked
+	var check_GM = document.getElementById("GM").checked;
+	var check_honey = document.getElementById("Honey").checked;
+	var check_ei = document.getElementById("EI").checked;
+
+	    // Values
+            var first_number = parseInt(document.getElementById("Text1").value);
+	    var legendary = (0.999992);
+	    var GM = (0.999988);
+	    var honey = (0.99999);
+		var enhanced = (0.9999903999);
+	    var gmhon_com = (0.9999849998);
+		var honei_com = (0.999988);
+	    var gmei_com = (0.9999855999);
+		var gmhonei_com = (0.9999819998);
+
+	    // Equation
+        var leg_eq = (1 - Math.pow(legendary, first_number)) * 100;
+	    var gm_eq = (1 - Math.pow(GM, first_number)) * 100;
+	    var hon_eq = (1 - Math.pow(honey, first_number)) * 100;
+	    var en_eq = (1 - Math.pow(enhanced, first_number)) * 100;
+	    var gmhon_eq = (1 - Math.pow(gmhon_com, first_number)) * 100;
+	    var gmei_eq = (1 - Math.pow(gmei_com, first_number)) * 100;
+	    var honei_eq = (1 - Math.pow(honei_com, first_number)) * 100;
+	    var gmhonei_eq = (1 - Math.pow(gmhonei_com, first_number)) * 100;
+
+	    // Results with 2 decimals points only
+	    var leg_res = (leg_eq).toFixed(2);
+	    var gm_res = (gm_eq).toFixed(2);
+	    var hon_res = (hon_eq).toFixed(2);
+	    var en_res = (en_eq).toFixed(2);
+	    var gmhon_res = (gmhon_eq).toFixed(2);
+	    var gmei_res = (gmei_eq).toFixed(2);
+	    var honei_res = (honei_eq).toFixed(2);
+	    var gmhonei_res = (gmhonei_eq).toFixed(2);
+
+	    // Final results
+	    var result = leg_res;
+	    var result1 = gm_res;
+	    var result2 = hon_res;
+	    var result3 = en_res;
+	    var result4 = gmhon_res;
+	    var result5 = gmei_res;
+	    var result6 = gmhonei_res;
+	    var result7 = honei_res;
+
+
+	// honey
+	if((check_honey == true) && (check_GM !== true) && (check_ei !== true)) {
+	    document.getElementById("result").innerHTML="Chance of Encounter "+result2+"%";
+	// gm
+	} else if((check_GM == true) && (check_honey !== true) && (check_ei !== true)) {
+	    document.getElementById("result").innerHTML="Chance of Encounter "+result1+"%";
+	
+	// enhanced
+	} else if((check_ei == true) && (check_honey !== true) && (check_GM !== true)) {
+	    document.getElementById("result").innerHTML="Chance of Encounter "+result3+"%";
+		
+	// gm + honey
+	} else if((check_honey == true) && (check_GM == true) && (check_ei !== true)) {
+		document.getElementById("result").innerHTML="Chance of Encounter "+result4+"%";
+	
+	// gm + enhanced
+	} else if((check_honey !== true) && (check_GM == true) && (check_ei == true)) {
+		document.getElementById("result").innerHTML="Chance of Encounter "+result5+"%";
+		
+	// honey + enhanced
+	} else if((check_honey == true) && (check_GM !== true) && (check_ei == true)) {
+		document.getElementById("result").innerHTML="Chance of Encounter "+result7+"%";
+
+	// - gm - honey - enhanced
+    } else if((check_honey !== true) && (check_GM !== true) && (check_ei !== true)) {
+	    document.getElementById("result").innerHTML="Chance of Encounter "+result+"%";
+
+	// gm + honey + enhanced
+    } else if((check_honey == true) && (check_GM == true) && (check_ei == true)) {
+	    document.getElementById("result").innerHTML="Chance of Encounter "+result6+"%";
+	}
+	}
+</script>
+	<H6><footer>&copy; Dhagz 2020</footer></H6>
+</body> 
+</html>
