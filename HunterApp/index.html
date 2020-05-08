@@ -2,6 +2,12 @@
 <html>
 <head> 
     <link rel="shortcut icon" href="https://www.pinclipart.com/picdir/middle/84-842615_pokeball-icon-clipart.png">
+	<script type="text/javascript">
+		function resizeIframe(obj){
+		obj.style.height = 0;
+		obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+		}
+	</script>
 	<meta charset="UTF-8">
 	<title>PPO Hunter's App</title>
 <!-- for styling -->
@@ -58,14 +64,14 @@
 <body>
 	<div>
 		<div class="split right">
-			<iframe name="Framename" src="https://pokemon-planet.com/gameFullscreen.php" width="1050" height="560" frameborder="0" scrolling="auto" class="frame-area" align="right"></iframe>
+			<iframe name="pokeplanet" src="https://pokemon-planet.com/gameFullscreen.php" width="1050" height="560" frameborder="0" scrolling="auto" class="frame-area" align="left"  align="left onload='resizeIframe(this)"></iframe>
 		</div>
 		<div class="split left">
 			<div class="centered">
 				<div>
 					<h2>Hunter's App</h2>
 				</div>
-			LLE: <br>
+			LLE <br>
             <input type="text" id="Text1" maxlength="6" name="TextBox1">
             <br><br>
 				<div>
@@ -80,7 +86,7 @@
 			<button onclick="add_number()">Calculate</button>
 			<h5 id="result"></h5><br><br>
 				<div>
-					<iframe name="pokedex" src="https://pokedex.org" width="250" height="250" frameborder="0" scrolling="auto" class="frame-area" align="left"></iframe>
+					<iframe name="pokedex" src="https://pokedex.org" width="283" height="250" frameborder="0" scrolling="auto" class="frame-area" align="left onload='resizeIframe(this)"></iframe>
 				</div>
 			</div>
 		</div>
