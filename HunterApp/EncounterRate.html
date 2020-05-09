@@ -63,104 +63,93 @@
 					<h2>Hunter's App</h2>
 				</div>
 			Legendless Encounters <br>
-            <input type="text" id="Text1" maxlength="6" name="TextBox1" size="100">
+            <input type="text" id="encounterInput" maxlength="6"  size="100">
             <br><br>
 				<div>
 					<form action="#" method="post" class="demoForm" id="demoForm"> 
-						<label><input type="checkbox" id="GM" onclick="myFunction()"/>GM</label><br>
-						<label><input type="checkbox" id="EI" onclick="myFunction()"/>(E) Items</label><br>
-						<label><input type="checkbox" id="Honey" onclick="myFunction()"/> Honey</label><br>
+						<label><input type="checkbox" id="GM"/>GM</label><br>
+						<label><input type="checkbox" id="EI"/>(E) Items</label><br>
+						<label><input type="checkbox" id="Honey"/> Honey</label><br>
 					</form><br>
 				</div>
-            Legend Chance : <br>
+			<button onclick="calculate()">Calculate</button> </br></br>
+            <!-- Legend Chance : <br> -->
             <br>
-			<button onclick="add_number()">Calculate</button>
 			<h3 id="result"></h3><br><br>
 			</div>
 		</div>
 	</div>
 <script type="text/javascript">	
 
-        function add_number() {
-	
-	// Checkbox if checked
-	var check_GM = document.getElementById("GM").checked;
-	var check_honey = document.getElementById("Honey").checked;
-	var check_ei = document.getElementById("EI").checked;
+    function calculate() {
+		// Checkbox if checked
+		var gmChecked = document.getElementById("GM").checked;
+		var honeyChecked = document.getElementById("Honey").checked;
+		var eiChecked = document.getElementById("EI").checked;
 
-	    // Values
-            var first_number = parseInt(document.getElementById("Text1").value);
-	    var legendary = (0.999992);
-	    var GM = (0.999988);
-	    var honey = (0.99999);
-		var enhanced = (0.9999903999);
-	    var gmhon_com = (0.9999849998);
-		var honei_com = (0.999988);
-	    var gmei_com = (0.9999855999);
-		var gmhonei_com = (0.9999819998);
+		// Value
+        var encounterInput = parseInt(document.getElementById("encounterInput").value);
 
-	    // Equation
-        var leg_eq = (1 - Math.pow(legendary, first_number)) * 100;
-	    var gm_eq = (1 - Math.pow(GM, first_number)) * 100;
-	    var hon_eq = (1 - Math.pow(honey, first_number)) * 100;
-	    var en_eq = (1 - Math.pow(enhanced, first_number)) * 100;
-	    var gmhon_eq = (1 - Math.pow(gmhon_com, first_number)) * 100;
-	    var gmei_eq = (1 - Math.pow(gmei_com, first_number)) * 100;
-	    var honei_eq = (1 - Math.pow(honei_com, first_number)) * 100;
-	    var gmhonei_eq = (1 - Math.pow(gmhonei_com, first_number)) * 100;
+        // Encounter Rates
+	    var LEGENDARY = 0.999992;
+	    var GM = 0.999988;
+	    var HONEY = 0.99999;
+		var EITEM = 0.9999903999;
+	    var GMHONEY = 0.9999849998;
+		var EIHONEY = 0.999988;
+	    var EIGM = 0.9999855999;
+		var GMHONEI = 0.9999819998;
 
-	    // Results with 2 decimals points only
-	    var leg_res = (leg_eq).toFixed(2);
-	    var gm_res = (gm_eq).toFixed(2);
-	    var hon_res = (hon_eq).toFixed(2);
-	    var en_res = (en_eq).toFixed(2);
-	    var gmhon_res = (gmhon_eq).toFixed(2);
-	    var gmei_res = (gmei_eq).toFixed(2);
-	    var honei_res = (honei_eq).toFixed(2);
-	    var gmhonei_res = (gmhonei_eq).toFixed(2);
+		// HONEY
+		if (honeyChecked && !gmChecked && !eiChecked) {
+			return returnOutput(calculateRate(HONEY, encounterInput))
 
-	    // Final results
-	    var result = leg_res;
-	    var result1 = gm_res;
-	    var result2 = hon_res;
-	    var result3 = en_res;
-	    var result4 = gmhon_res;
-	    var result5 = gmei_res;
-	    var result6 = gmhonei_res;
-	    var result7 = honei_res;
+		// GM
+		} else if (gmChecked && !honeyChecked && !eiChecked) {
+			return returnOutput(calculateRate(GM, encounterInput))
 
+		// EITEM
+		} else if (eiChecked && !honeyChecked && !gmChecked) {
+			return returnOutput(calculateRate(EITEM, encounterInput))
 
-	// honey
-	if((check_honey == true) && (check_GM !== true) && (check_ei !== true)) {
-	    document.getElementById("result").innerHTML="Chance of Encounter "+result2+"%";
-	// gm
-	} else if((check_GM == true) && (check_honey !== true) && (check_ei !== true)) {
-	    document.getElementById("result").innerHTML="Chance of Encounter "+result1+"%";
-	
-	// enhanced
-	} else if((check_ei == true) && (check_honey !== true) && (check_GM !== true)) {
-	    document.getElementById("result").innerHTML="Chance of Encounter "+result3+"%";
-		
-	// gm + honey
-	} else if((check_honey == true) && (check_GM == true) && (check_ei !== true)) {
-		document.getElementById("result").innerHTML="Chance of Encounter "+result4+"%";
-	
-	// gm + enhanced
-	} else if((check_honey !== true) && (check_GM == true) && (check_ei == true)) {
-		document.getElementById("result").innerHTML="Chance of Encounter "+result5+"%";
-		
-	// honey + enhanced
-	} else if((check_honey == true) && (check_GM !== true) && (check_ei == true)) {
-		document.getElementById("result").innerHTML="Chance of Encounter "+result7+"%";
+		// GM + HONEY
+		} else if (honeyChecked && gmChecked && !eiChecked) {
+			return returnOutput(calculateRate(GMHONEY, encounterInput))
 
-	// - gm - honey - enhanced
-    } else if((check_honey !== true) && (check_GM !== true) && (check_ei !== true)) {
-	    document.getElementById("result").innerHTML="Chance of Encounter "+result+"%";
+		// GM + EITEM
+		} else if (gmChecked && eiChecked && !honeyChecked) {
+			return returnOutput(calculateRate(EIGM, encounterInput))
 
-	// gm + honey + enhanced
-    } else if((check_honey == true) && (check_GM == true) && (check_ei == true)) {
-	    document.getElementById("result").innerHTML="Chance of Encounter "+result6+"%";
+		// HONEY _ EITEM
+		} else if (eiChecked && honeyChecked && !gmChecked) {
+			return returnOutput(calculateRate(EIHONEY, encounterInput))
+
+		// HONEY + GM + EITEM
+		} else if (gmChecked && honeyChecked && eiChecked) {
+			return returnOutput(calculateRate(GMHONEI, encounterInput))
+
+		// NORMAL
+		} else if (!(gmChecked && honeyChecked && eiChecked)) {
+			return returnOutput(calculateRate(LEGENDARY, encounterInput))
+		}
 	}
+
+	function calculateRate(val, first_number) {
+		var value = (1 - Math.pow(val, first_number)) * 100;
+
+		return value.toFixed(2);
+	}
+
+	/**
+	 * @param {boolean} checkBoxes
+	 * @param {number} rate
+	 */
+	function returnOutput(result) {
+		if(!isNaN(result)) {
+			return document.getElementById("result").innerHTML="Chance of Encounter "+ result +"%";
+		} else {
+			document.getElementById("result").innerHTML="Invalid input!";
+		}
 	}
 </script>
 	<H6><footer>&copy; Dhagz 2020</footer></H6>
