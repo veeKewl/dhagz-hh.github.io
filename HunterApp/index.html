@@ -1,210 +1,33 @@
-<!DOCTYPE HTML>
-<html>
-<head> 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<HTML>
+<HEAD>
+<TITLE>Hunter's App</TITLE>
     <link rel="shortcut icon" href="https://www.pinclipart.com/picdir/middle/84-842615_pokeball-icon-clipart.png">
-	<meta charset="UTF-8">
-	<title>PPO Hunter's App</title>
 <!-- for styling -->
 	<style>
 		body {
 		font-family: 'Raleway', sans-serif !important;
-        background: url(https://a-static.besthdwallpaper.com/gastly-gengar-haunter-of-pokemon-wallpaper-2560x1440-6514_51.jpg);
+        background: url(https://images7.alphacoders.com/549/549807.png);
 		background-repeat: no-repeat;
 		background-attachment: fixed;
 		background-position: center;
 		background-size: cover;
-		color: white;
 		}
-		form {
-		font-size: 10px;
-    	}
-		iframe.top {
-    	position: right;
-    	border: none;
-    	float: right;
-		width: 60%;
-    	height: 100%;
-    	}
-        input[type="button"] { 
-        background-color:grey; 
-        color: white;
-		font-size: 13px; 
-        border: grey 5px;  
-        } 
-        input[type="text"] { 
-        background-color:white; 
-        border: solid black 2px; 
-		text-align:right;
-		width:100%; 
-		} 
-		footer {
-		position: absolute;
-		text-align: center;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		margin-left: 'auto';
-		margin-right: 'auto';
-		}
-		b  {
-		color: #DACA69;
-		}
-		h6 {
-		margin-top: 0px;
-		} 
-	</style> 
-</head> 
-<body>
-	<div>
-		<div class="split left">
-			<div class="centered">
-				<div>
-					<h2>Hunter's App</h2>
-				</div>
-			Legendless Encounters <br>
-            <input type="text" id="encounterInput" maxlength="6"  size="100">
-            <br><br>
-				<div class="container">
-					<form class="Boosts" id="Boosts">	
-					<table>
-						<tr>
-							<td> 
-					<fieldset>      
-						<legend>Consumables:</legend>
-							<label><input type="checkbox" id="GM"/>GM</label><br>
-							<label><input type="checkbox" id="Honey"/> Honey</label><br>
-					</fieldset>
-							</td>
-							<td>
-					<fieldset>      
-						<legend>Charms:</legend>
-						<label><input type="checkbox" id="HCharm"/>Hunter Charm</label><br>
-						<label><input type="checkbox" id="RCharm"/> Rare Charm</label><br>
-					</fieldset>					
-							</td>
-					</table>
-					</form><br>
-				</div>
-			<button onclick="calculate()">Calculate</button>
-            <!-- Legend Chance : <br> -->
-			<h3 id="result"></h3><br><br>
-			</div>
-		</div>
-	</div>
-<script type="text/javascript">	
-
-    function calculate() {
-		// Checkbox if checked
-		var gmChecked = document.getElementById("GM").checked;
-		var honeyChecked = document.getElementById("Honey").checked;
-		var hcChecked = document.getElementById("HCharm").checked;
-		var rcChecked = document.getElementById("RCharm").checked;
-
-		// Value
-        var encounterInput = parseInt(document.getElementById("encounterInput").value);
-
-        // Encounter Rates
-	    var LEGENDARY = 0.999992;
-	    var GM = 0.999988;
-	    var HONEY = 0.99999;
-		var EITEM = 0.9999903999;
-		var RCHARM = 0.9999912;
-		var HCHARM = 0.9999903999;
-		var RCHARMGM = 0.9999867999;
-		var RCHARMHONEY = 0.999989;
-	    var GMHONEY = 0.9999849998;
-		var EIHONEY = 0.999988;
-	    var EIGM = 0.9999855999;
-		var HCGM = 0.9999855999;
-		var HCHONEY = 0.9999879998;
-		var GMHONEI = 0.9999819998;
-		var GMHONRCHARM = 0.9999835;
-		var GMHONHC = 0.9999819998;
-
-		// HONEY
-		if (honeyChecked && !gmChecked && !hcChecked && !rcChecked) {
-			return returnOutput(calculateRate(HONEY, encounterInput))
-
-		// GM
-		} else if (gmChecked && !honeyChecked && !hcChecked && !rcChecked) {
-			return returnOutput(calculateRate(GM, encounterInput))
-
-		// HCHARM
-		} else if (hcChecked && !honeyChecked && !gmChecked && !rcChecked) {
-			return returnOutput(calculateRate(HCHARM, encounterInput))
-
-		// RCHARM
-		} else if (rcChecked && !hcChecked && !honeyChecked && !gmChecked) {
-			return returnOutput(calculateRate(RCHARM, encounterInput))
-
-		// GM + RCHARM
-		} else if (rcChecked && !hcChecked && !honeyChecked && gmChecked) {
-			return returnOutput(calculateRate(RCHARMGM, encounterInput))
-
-		// GM + HONEY
-		} else if (honeyChecked && gmChecked && !hcChecked && !rcChecked) {
-			return returnOutput(calculateRate(GMHONEY, encounterInput))
-
-		// GM + HCHARM
-		} else if (gmChecked && hcChecked && !honeyChecked && !rcChecked) {
-			return returnOutput(calculateRate(HCGM, encounterInput))
-			
-		// HONEY + RCHARM
-		} else if (!hcChecked && honeyChecked && !gmChecked && rcChecked) {
-			return returnOutput(calculateRate(RCHARMHONEY, encounterInput))
-
-		// HONEY + HCHARM
-		} else if (hcChecked && honeyChecked && !gmChecked && !rcChecked) {
-			return returnOutput(calculateRate(HCHONEY, encounterInput))
-
-		// INVALID  RCHARM + HCHARM
-		} else if (hcChecked && rcChecked && !honeyChecked && !gmChecked) {
-			document.getElementById("result").innerHTML="Choose 1 Item only";
-		
-		// INVALID  RCHARM + HCHARM + HONEY
-		} else if (hcChecked && rcChecked && honeyChecked && !gmChecked) {
-			document.getElementById("result").innerHTML="Choose 1 Item only";
-			
-		// INVALID  RCHARM + HCHARM + GM
-		} else if (hcChecked && rcChecked && !honeyChecked && gmChecked) {
-			document.getElementById("result").innerHTML="Choose 1 Item only";
-			
-		// INVALID HONEY + GM + HCHARM + RCHARM
-		} else if (gmChecked && honeyChecked && hcChecked && rcChecked) {
-			document.getElementById("result").innerHTML="Choose 1 Item only";
-			
-		// HONEY + GM + RCHARM
-		} else if (gmChecked && honeyChecked && !hcChecked && rcChecked) {
-			return returnOutput(calculateRate(GMHONRCHARM, encounterInput))
-
-		// HONEY + GM + HCHARM
-		} else if (gmChecked && honeyChecked && hcChecked && !rcChecked) {
-			return returnOutput(calculateRate(GMHONHC, encounterInput))
-
-		// NORMAL
-		} else if (!(gmChecked && honeyChecked && hcChecked && rcChecked)) {
-			return returnOutput(calculateRate(LEGENDARY, encounterInput))
-		}
-	}
-
-	function calculateRate(val, first_number) {
-		var value = (1 - Math.pow(val, first_number)) * 100;
-
-		return value.toFixed(2);
-	}
-
-	/**
-	 * @param {boolean} checkBoxes
-	 * @param {number} rate
-	 */
-	function returnOutput(result) {
-		if(!isNaN(result)) {
-			return document.getElementById("result").innerHTML="Chance of Encounter "+ result +"%";
-		} else {
-			document.getElementById("result").innerHTML="Invalid input!";
-		}
-	}
-</script>
-	<H6><footer>&copy; Dhagz 2020</footer></H6>
-</body> 
-</html>
+	</style>
+</HEAD>
+<FRAMESET cols="21%, 79%">
+  <FRAMESET rows="170, 130">
+      <FRAME src="https://dhagz-hh.github.io/HunterApp/EncounterRate.html" scrolling=no frameborder=0 ">  
+      <FRAME src="https://pokedex.org/#/pokemon/646" scrolling=no frameborder=0 noresize>
+  </FRAMESET>
+  <FRAME src="https://pokemon-planet.com/gameFullscreen.php" scrolling=no frameborder=0 noresize>
+  <NOFRAMES>
+      <P>This frameset document contains:
+      <UL>
+         <LI><A href="https://dhagz-hh.github.io/HunterApp/EncounterRate.html">Some neat contents</A>
+         <LI><IMG src="https://pokedex.org/#/pokemon/646" alt="A neat image">
+         <LI><A href="https://pokemon-planet.com/gameFullscreen.php">Some other neat contents</A>
+      </UL>
+  </NOFRAMES>
+</FRAMESET>
+</HTML>
