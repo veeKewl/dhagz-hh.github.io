@@ -8,7 +8,7 @@
 	<style>
 		body {
 		font-family: 'Raleway', sans-serif !important;
-        	background: url(https://a-static.besthdwallpaper.com/gastly-gengar-haunter-of-pokemon-wallpaper-2560x1440-6514_51.jpg);
+        background: url(https://a-static.besthdwallpaper.com/gastly-gengar-haunter-of-pokemon-wallpaper-2560x1440-6514_51.jpg);
 		background-repeat: no-repeat;
 		background-attachment: fixed;
 		background-position: center;
@@ -29,8 +29,7 @@
         background-color:grey; 
         color: white;
 		font-size: 13px; 
-        border: solid grey 2px; 
-        width: 100%; 
+        border: grey 5px;  
         } 
         input[type="text"] { 
         background-color:white; 
@@ -65,16 +64,29 @@
 			Legendless Encounters <br>
             <input type="text" id="encounterInput" maxlength="6"  size="100">
             <br><br>
-				<div>
-					<form action="#" method="post" class="demoForm" id="demoForm"> 
-						<label><input type="checkbox" id="GM"/>GM</label><br>
-						<label><input type="checkbox" id="EI"/>(E) Items</label><br>
-						<label><input type="checkbox" id="Honey"/> Honey</label><br>
+				<div class="container">
+					<form class="Boosts" id="Boosts">	
+					<table>
+						<tr>
+							<td> 
+					<fieldset>      
+						<legend>Consumables:</legend>
+							<label><input type="checkbox" id="GM"/>GM</label><br>
+							<label><input type="checkbox" id="Honey"/> Honey</label><br>
+					</fieldset>
+							</td>
+							<td>
+					<fieldset>      
+						<legend>Charms:</legend>
+						<label><input type="checkbox" id="HCharm"/>Hunter Charm</label><br>
+						<label><input type="checkbox" id="RCharm"/> Rare Charm</label><br>
+					</fieldset>					
+							</td>
+					</table>
 					</form><br>
 				</div>
-			<button onclick="calculate()">Calculate</button> </br></br>
+			<button onclick="calculate()">Calculate</button>
             <!-- Legend Chance : <br> -->
-            <br>
 			<h3 id="result"></h3><br><br>
 			</div>
 		</div>
@@ -85,7 +97,8 @@
 		// Checkbox if checked
 		var gmChecked = document.getElementById("GM").checked;
 		var honeyChecked = document.getElementById("Honey").checked;
-		var eiChecked = document.getElementById("EI").checked;
+		var hcChecked = document.getElementById("HCharm").checked;
+		var rcChecked = document.getElementById("RCharm").checked;
 
 		// Value
         var encounterInput = parseInt(document.getElementById("encounterInput").value);
@@ -95,41 +108,81 @@
 	    var GM = 0.999988;
 	    var HONEY = 0.99999;
 		var EITEM = 0.9999903999;
+		var RCHARM = 0.9999912;
+		var HCHARM = 0.9999903999;
+		var RCHARMGM = 0.9999867999;
+		var RCHARMHONEY = 0.999989;
 	    var GMHONEY = 0.9999849998;
 		var EIHONEY = 0.999988;
 	    var EIGM = 0.9999855999;
+		var HCGM = 0.9999855999;
+		var HCHONEY = 0.9999879998;
 		var GMHONEI = 0.9999819998;
+		var GMHONRCHARM = 0.9999835;
+		var GMHONHC = 0.9999819998;
 
 		// HONEY
-		if (honeyChecked && !gmChecked && !eiChecked) {
+		if (honeyChecked && !gmChecked && !hcChecked && !rcChecked) {
 			return returnOutput(calculateRate(HONEY, encounterInput))
 
 		// GM
-		} else if (gmChecked && !honeyChecked && !eiChecked) {
+		} else if (gmChecked && !honeyChecked && !hcChecked && !rcChecked) {
 			return returnOutput(calculateRate(GM, encounterInput))
 
-		// EITEM
-		} else if (eiChecked && !honeyChecked && !gmChecked) {
-			return returnOutput(calculateRate(EITEM, encounterInput))
+		// HCHARM
+		} else if (hcChecked && !honeyChecked && !gmChecked && !rcChecked) {
+			return returnOutput(calculateRate(HCHARM, encounterInput))
+
+		// RCHARM
+		} else if (rcChecked && !hcChecked && !honeyChecked && !gmChecked) {
+			return returnOutput(calculateRate(RCHARM, encounterInput))
+
+		// GM + RCHARM
+		} else if (rcChecked && !hcChecked && !honeyChecked && gmChecked) {
+			return returnOutput(calculateRate(RCHARMGM, encounterInput))
 
 		// GM + HONEY
-		} else if (honeyChecked && gmChecked && !eiChecked) {
+		} else if (honeyChecked && gmChecked && !hcChecked && !rcChecked) {
 			return returnOutput(calculateRate(GMHONEY, encounterInput))
 
-		// GM + EITEM
-		} else if (gmChecked && eiChecked && !honeyChecked) {
-			return returnOutput(calculateRate(EIGM, encounterInput))
+		// GM + HCHARM
+		} else if (gmChecked && hcChecked && !honeyChecked && !rcChecked) {
+			return returnOutput(calculateRate(HCGM, encounterInput))
+			
+		// HONEY + RCHARM
+		} else if (!hcChecked && honeyChecked && !gmChecked && rcChecked) {
+			return returnOutput(calculateRate(RCHARMHONEY, encounterInput))
 
-		// HONEY _ EITEM
-		} else if (eiChecked && honeyChecked && !gmChecked) {
-			return returnOutput(calculateRate(EIHONEY, encounterInput))
+		// HONEY + HCHARM
+		} else if (hcChecked && honeyChecked && !gmChecked && !rcChecked) {
+			return returnOutput(calculateRate(HCHONEY, encounterInput))
 
-		// HONEY + GM + EITEM
-		} else if (gmChecked && honeyChecked && eiChecked) {
-			return returnOutput(calculateRate(GMHONEI, encounterInput))
+		// INVALID  RCHARM + HCHARM
+		} else if (hcChecked && rcChecked && !honeyChecked && !gmChecked) {
+			document.getElementById("result").innerHTML="Choose 1 Item only";
+		
+		// INVALID  RCHARM + HCHARM + HONEY
+		} else if (hcChecked && rcChecked && honeyChecked && !gmChecked) {
+			document.getElementById("result").innerHTML="Choose 1 Item only";
+			
+		// INVALID  RCHARM + HCHARM + GM
+		} else if (hcChecked && rcChecked && !honeyChecked && gmChecked) {
+			document.getElementById("result").innerHTML="Choose 1 Item only";
+			
+		// INVALID HONEY + GM + HCHARM + RCHARM
+		} else if (gmChecked && honeyChecked && hcChecked && rcChecked) {
+			document.getElementById("result").innerHTML="Choose 1 Item only";
+			
+		// HONEY + GM + RCHARM
+		} else if (gmChecked && honeyChecked && !hcChecked && rcChecked) {
+			return returnOutput(calculateRate(GMHONRCHARM, encounterInput))
+
+		// HONEY + GM + HCHARM
+		} else if (gmChecked && honeyChecked && hcChecked && !rcChecked) {
+			return returnOutput(calculateRate(GMHONHC, encounterInput))
 
 		// NORMAL
-		} else if (!(gmChecked && honeyChecked && eiChecked)) {
+		} else if (!(gmChecked && honeyChecked && hcChecked && rcChecked)) {
 			return returnOutput(calculateRate(LEGENDARY, encounterInput))
 		}
 	}
